@@ -1,0 +1,15 @@
+Allows for changing the volume of individual sounds by applying a flat multiplier to the volume *after* all of Minecraft's base modifiers
+
+adds 4 commands to the game:
+
+    /adjustSoundVolume <sound_id> <multiplier>
+        -Sets the volume multiplier for a sound.
+
+    /getAdjustedSounds
+        -Displays a list of all sounds that you have adjusted.
+
+    /getRecentSounds Optional<count>
+        -Displays recent sounds played with the amount of time since they were played, defaults to 50 max is 200.
+
+    /playSoundClient Optional<id>
+        -Plays the given sound to the client, default is the last adjusted sound
