@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "soundadjuster",
 	"version": "${version}",
-	"name": "soundadjuster",
+	"name": "Sound Adjuster",
 	"description": "Allows adjusting individual sound values without limits",
 	"authors": [
 		"SidOfThe7Cs"
