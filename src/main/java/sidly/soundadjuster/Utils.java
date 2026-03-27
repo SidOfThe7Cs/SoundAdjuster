@@ -13,7 +13,7 @@ public class Utils {
         Minecraft client = Minecraft.getInstance();
         LocalPlayer player = client.player;
         if (player != null && message != null && !message.isEmpty()) {
-            player.displayClientMessage(Component.literal(message), false);
+            Minecraft.getInstance().gui.getChat().addClientSystemMessage(Component.literal(message));
         }
     }
 

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import sidly.soundadjuster.SoundAdjuster;
 
-@Mixin(SoundEngine.class)
+@Mixin(value = SoundEngine.class)
 public abstract class SoundEngineMixin {
     @Shadow protected abstract float calculateVolume(float volume, SoundSource category);
 
@@ -22,7 +22,7 @@ public abstract class SoundEngineMixin {
                     ordinal = 0
             )
     )
-    private float adjustVolume(SoundEngine instance, float volume, SoundSource category, @Local(name = "identifier") Identifier identifier) {
+    private float adjustVolume(SoundEngine instance, float volume, SoundSource category, @Local(name = "eventLocation") Identifier identifier) {
         float original = this.calculateVolume(volume, category);
         float multiplier = SoundAdjuster.getVolumeMultiplier(identifier);
         return original * multiplier;

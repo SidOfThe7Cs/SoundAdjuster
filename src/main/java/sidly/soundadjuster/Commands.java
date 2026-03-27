@@ -9,7 +9,7 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.resources.Identifier;
@@ -26,20 +26,20 @@ public class Commands {
     }
 
     private static LiteralArgumentBuilder<FabricClientCommandSource> adjustCommand() {
-        LiteralArgumentBuilder<FabricClientCommandSource> base = ClientCommandManager.literal("adjustSoundVolume")
+        LiteralArgumentBuilder<FabricClientCommandSource> base = ClientCommands.literal("adjustSoundVolume")
                 .executes(context -> {
                     Utils.sendClientChatMessage("No sound specified");
                     return 0;
                 });
 
-        RequiredArgumentBuilder<FabricClientCommandSource, String> arg1 = ClientCommandManager.argument("id", StringArgumentType.string())
+        RequiredArgumentBuilder<FabricClientCommandSource, String> arg1 = ClientCommands.argument("id", StringArgumentType.string())
                 .suggests(Commands::soundSelector)
                 .executes((context) -> {
                     Utils.sendClientChatMessage("No multiplier specified");
                     return 0;
                 });
 
-        RequiredArgumentBuilder<FabricClientCommandSource, Float> arg2 = ClientCommandManager.argument("multiplier", FloatArgumentType.floatArg(0.0F))
+        RequiredArgumentBuilder<FabricClientCommandSource, Float> arg2 = ClientCommands.argument("multiplier", FloatArgumentType.floatArg(0.0F))
                 .executes(context -> {
                     String soundID = StringArgumentType.getString(context, "id");
                     float multiplier = FloatArgumentType.getFloat(context, "multiplier");
@@ -55,7 +55,7 @@ public class Commands {
     }
 
     private static LiteralArgumentBuilder<FabricClientCommandSource> getAdjustedCommand() {
-        return ClientCommandManager.literal("getAdjustedSounds")
+        return ClientCommands.literal("getAdjustedSounds")
                 .executes(context -> {
                     StringBuilder sb = new StringBuilder();
                     SoundAdjuster.getVolumeMultipliers().entrySet().stream()
@@ -69,13 +69,13 @@ public class Commands {
     }
 
     private static LiteralArgumentBuilder<FabricClientCommandSource> getRecentCommand() {
-        LiteralArgumentBuilder<FabricClientCommandSource> base = ClientCommandManager.literal("getRecentSounds")
+        LiteralArgumentBuilder<FabricClientCommandSource> base = ClientCommands.literal("getRecentSounds")
                 .executes(context -> {
                     displaySoundQueue(50);
                     return 1;
                 });
 
-        RequiredArgumentBuilder<FabricClientCommandSource, Integer> arg1 = ClientCommandManager.argument("count", IntegerArgumentType.integer(1, 200))
+        RequiredArgumentBuilder<FabricClientCommandSource, Integer> arg1 = ClientCommands.argument("count", IntegerArgumentType.integer(1, 200))
                 .executes(context -> {
                     int count = IntegerArgumentType.getInteger(context, "count");
                     displaySoundQueue(count);
@@ -86,7 +86,7 @@ public class Commands {
     }
 
     private static LiteralArgumentBuilder<FabricClientCommandSource> playCommand() {
-        LiteralArgumentBuilder<FabricClientCommandSource> base = ClientCommandManager.literal("playSoundClient")
+        LiteralArgumentBuilder<FabricClientCommandSource> base = ClientCommands.literal("playSoundClient")
                 .executes(context -> {
                     Identifier id = SoundAdjuster.getLastAdjusted();
                     if (id != null) {
@@ -95,7 +95,7 @@ public class Commands {
                     return 0;
                 });
 
-        RequiredArgumentBuilder<FabricClientCommandSource, String> arg1 = ClientCommandManager.argument("id", StringArgumentType.string())
+        RequiredArgumentBuilder<FabricClientCommandSource, String> arg1 = ClientCommands.argument("id", StringArgumentType.string())
                 .suggests(Commands::soundSelector)
                 .executes(context -> {
                     String soundID = StringArgumentType.getString(context, "id");

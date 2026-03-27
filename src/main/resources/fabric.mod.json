@@ -23,9 +23,9 @@
 		"soundadjuster.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.18.4",
-		"minecraft": "~1.21.11",
-		"java": ">=21",
-		"fabric-api": "*"
+		"fabricloader": ">=0.18.5",
+		"minecraft": ">=1.26.1",
+		"java": ">=25",
+		"fabric-command-api-v2": "*"
 	}
 }
